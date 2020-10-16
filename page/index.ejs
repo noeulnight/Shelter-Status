@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shelter Status</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <link rel="shortcut icon" href="https://shelter.id/favicon.ico">
+    <style>
+      @font-face {
+        font-family: 'Handon3gyeopsal600g';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+    <script>
+      setTimeout(() => {
+        location.reload()
+      }, 30000)
+    </script>
+  </head>
+  <body style="background-color: #4C566A;">
+    <div class="container w-100">
+      <div class="card text-center" style="border-radius: 5px;">
+        <img class="card-img-top shadow" src="/src/logo.png" alt="">
+        <div class="card-body"><br/>
+          <div class="card-title" style="font-size: 30px; font-family: 'Handon3gyeopsal600g';"><strong>Shelter.id Live Server Status</strong></div><br/>
+          <% if(list.filter(list => list.code === 200).length !== 0) { %>
+            <div class="card text-center shadow text-light" style="background-color:#4adb86; ">
+              <div class="card-body">
+                <strong style="font-size: 20px;">All Systems Operational</strong>
+              </div>
+            </div><br>
+          <% } else { %>
+            <div class="card text-center shadow text-dark" style="background-color:#e69721; ">
+              <div class="card-body">
+                <strong style="font-size: 20px;">Partial System Outage</strong>
+              </div>
+            </div><br>
+          <% } %>
+          
+
+          
+          <div class="card text-center shadow text-light" style="background-color: #3B4252;">
+            <div class="card-body">
+              <div class="card-title"><strong style="font-size: 20px;">Page Status / <% if(list.filter(list => list.type === 'page' && list.code === 200).length !== 0) { %>Operational<% } else { %>Major outage<% } %></strong></div>
+              <center>
+                <table class="table text-light w-50">
+                  <% list.filter(list => list.type === 'page').forEach((item) => { %>
+                    <tr>
+                      <td class="text-left"><%= item.web %></td>
+                      <% if(item.code === 200) { %>
+                        <td class="text-right" style="color:#4adb86">
+                          Operational
+                        </td>
+                      <% } else { %>
+                        <td class="text-right" style="color:#e69721">
+                          Major outage
+                        </td>
+                      <% } %>
+                    </tr>
+                  <% }) %>
+                </table>
+              </center>
+            </div>
+          </div><br/>
+
+          <div class="card text-center shadow text-light" style="background-color: #3B4252;">
+            <div class="card-body">
+              <div class="card-title"><strong style="font-size: 20px;">API Status / <% if(list.filter(list => list.type === 'api' && list.code === 200).length !== 0) { %>Operational<% } else { %>Major outage<% } %></strong></div>
+              <center>
+                <table class="table text-light w-50">
+                  <% list.filter(list => list.type === 'api').forEach((item) => { %>
+                    <tr>
+                      <td class="text-left"><%= item.web %></td>
+                      <% if(item.code === 200) { %>
+                        <td class="text-right" style="color:#4adb86">
+                          Operational
+                        </td>
+                      <% } else { %>
+                        <td class="text-right" style="color:#e69721">
+                          Major outage
+                        </td>
+                      <% } %>
+                    </tr>
+                  <% }) %>
+                </table>
+              </center>
+            </div>
+          </div><br/>
+          
+          <% list.filter(list => list.type === 'etc').forEach((item) => { %>
+            <div class="card text-center shadow text-light" style="background-color: #3B4252;">
+              <div class="card-body">
+                <div class="card-title"><strong style="font-size: 20px;"><%= item.web %> Status / <% if(list.filter(list => list.type === 'page' && list.code === 200).length !== 0) { %>Operational<% } else { %>Major outage<% } %></strong></div>
+                <center>
+                  <table class="table text-light w-50">
+                      <tr>
+                        <td class="text-left"><%= item.web %></td>
+                        <% if(item.code === 200) { %>
+                          <td class="text-right" style="color:#4adb86">
+                            Operational
+                          </td>
+                        <% } else { %>
+                          <td class="text-right" style="color:#e69721">
+                            Major outage
+                          </td>
+                        <% } %>
+                      </tr>
+                  </table>
+                </center>
+              </div>
+            </div><br/>
+          <% }) %>
+          Hosted with <span style="color: #e25555;">♥</span> by <a href="https://noeul.codes" style="color: #3baff1">Noeul.codes</a>.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
